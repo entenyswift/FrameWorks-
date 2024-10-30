@@ -9,8 +9,8 @@
         
         <h2>Navigation</h2>
         <ul>
-            <li><a >View Task List</a></li>
-            <li><a >About Us</a></li>
+            <li><a href="{{ route('tasks.index') }}">View Task List</a></li>
+            <li><a href="{{ url('/about') }}">About Us</a></li>
         </ul>
 
         <h3>About This App</h3>
