@@ -1,5 +1,5 @@
 <?php
-//createTaskRequest.php
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -7,20 +7,22 @@ use Illuminate\Foundation\Http\FormRequest;
 class CreateTaskRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Определите, имеет ли пользователь право выполнить этот запрос.
+     *
+     * @return bool
      */
     public function authorize(): bool
     {
         return true;
     }
-    
 
     /**
-     * Get the validation rules that apply to the request.
+     * Получить правила валидации для запроса.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             'title' => 'required|string|min:3',
             'description' => 'nullable|string|max:500',
@@ -28,5 +30,4 @@ class CreateTaskRequest extends FormRequest
             'category_id' => 'required|exists:categories,id',
         ];
     }
-    
 }

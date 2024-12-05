@@ -1,16 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Просмотр задачи</title>
-</head>
-<body>
-    <h1>{{ $task->title }}</h1>
-    <p>Описание: {{ $task->description }}</p>
-    <p>Дата выполнения: {{ $task->due_date }}</p>
-    <p>Категория: {{ $task->category->name }}</p>
-    <a href="{{ route('tasks.edit', $task->id) }}">Редактировать</a>
-    <a href="{{ route('tasks.index') }}">Вернуться к списку</a>
-</body>
-</html>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Просмотр задачи') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <h3>Название задачи: {{ $task->title }}</h3>
+                    <p><strong>Описание:</strong> {{ $task->description ?? 'Нет описания' }}</p>
+                    <p><strong>Категория:</strong> {{ $task->category->name ?? 'Без категории' }}</p>
+                    <p><strong>Дата выполнения:</strong> {{ $task->due_date }}</p>
+                    <p><strong>Создана:</strong> {{ $task->created_at->format('d.m.Y H:i') }}</p>
+                    <p><strong>Обновлена:</strong> {{ $task->updated_at->format('d.m.Y H:i') }}</p>
+
+                    <a href="{{ route('dashboard') }}" class="text-blue-500 hover:underline">Вернуться к списку задач</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

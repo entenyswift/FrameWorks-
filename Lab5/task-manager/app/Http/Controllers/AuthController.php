@@ -1,5 +1,5 @@
 <?php
-
+//authController.php
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -7,11 +7,49 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
+use App\Models\Task;
 
 class AuthController extends Controller
 {
     public function register() {
         return view('auth.register');
+    }
+
+
+    public function index()
+    {
+        if (Auth::user()->isAdmin()) {
+            $users = User::all();  /
+            return view('dashboard', compact('users'));  
+        }
+    
+        // Для обычных пользователей
+        $tasks = Task::with('category')->get();
+        return view('tasks.index', compact('tasks'));
+    }
+
+    public function manageUsers()
+    {
+        // Получаем всех пользователей
+        $users = User::all();
+
+        // Передаем переменную $users в представление
+        return view('dashboard', compact('users'));
+    }
+
+    public function showUser($id)
+    {
+        $user = User::findOrFail($id);
+        return view('user.profile', compact('user'));
+    }
+    public function showUser(User $user)
+    {
+        if (Auth::user()->isAdmin()) {
+            return view('user.profile', compact('user'));
+        }
+
+        return redirect()->route('dashboard');
     }
 
     public function storeRegister(Request $request) {
@@ -31,6 +69,7 @@ class AuthController extends Controller
 
         return redirect()->route('dashboard');
     }
+    
 
     public function login() {
         return view('auth.login');

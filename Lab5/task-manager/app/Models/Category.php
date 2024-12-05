@@ -1,5 +1,6 @@
 <?php
 //category.php
+// В модели Category
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,8 +12,8 @@ class Category extends Model
 
     protected $fillable = ['name'];
 
-    public function tasks() {
-        return $this->hasMany(Task::class);
+    public function tasks()
+    {
+        return $this->hasMany(Task::class); // Связь с задачами
     }
 }
-
